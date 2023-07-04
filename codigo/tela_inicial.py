@@ -7,6 +7,7 @@ class TelaInicial:
         self.largura_tela = largura
         self.altura_tela = altura
 
+
         ##########################################################################################################
         # IMAGEM DE FUNDO DA TELA INICIAL
         caminho_imagem_fundo = os.path.join("assets", "imagens", "fundo", "fundo-inicial.png")
@@ -60,7 +61,20 @@ class TelaInicial:
 
     def desenhar_botao(self, tela, retangulo, texto):
         # botão em si
-        pg.draw.rect(tela, self.COR_VERDE, retangulo, border_radius=10)
+        # pg.draw.rect(tela, self.COR_VERDE, retangulo, border_radius=10)
+
+
+        mouse_pos = pg.mouse.get_pos()
+        if retangulo.collidepoint(mouse_pos):
+            cor_botao = (100, 100, 100)
+            pg.mouse.set_cursor(pg.SYSTEM_CURSOR_HAND)
+        else:
+            cor_botao = (0, 255, 0)
+            pg.mouse.set_cursor(pg.SYSTEM_CURSOR_ARROW)
+
+
+        # Desenha o botão
+        pg.draw.rect(tela, cor_botao, retangulo, border_radius=10)
 
         # texto do botão
         texto_botao = self.fonte.render(texto, True, self.COR_BRANCA)
